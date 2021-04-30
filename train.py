@@ -1,11 +1,13 @@
 import dataset
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 import os
 import time
 from datetime import timedelta
 import math
 import random
 import numpy as np
+
+tf.disable_v2_behavior()
 
 batch_size = 16
 num_inputs = 2

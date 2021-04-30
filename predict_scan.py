@@ -1,11 +1,12 @@
 import time
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 import numpy as np
 import os
 import sys, argparse
 from rtlsdr import RtlSdr
 import scipy.signal as signal
 
+tf.disable_v2_behavior()
 
 def read_samples(sdr, freq):
     f_offset = 250000  # shifted tune to avoid DC

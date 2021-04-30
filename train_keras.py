@@ -1,7 +1,13 @@
 from __future__ import division, print_function
-from keras.layers import Input, Dense, Flatten
-from keras.layers import Conv2D, MaxPooling2D
-from keras.models import Model
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
+
+from tensorflow import keras
+from tensorflow.keras import layers
+from tensorflow.keras import models
+from tensorflow.keras.layers import Input, Dense, Flatten
+from tensorflow.keras.layers import Conv2D, MaxPooling2D
+from tensorflow.keras.models import Model
 from rtlsdr import RtlSdr
 import numpy as np
 import scipy.signal as signal
@@ -54,7 +60,7 @@ model.fit(Xtrain, Ytrain, epochs=50, batch_size=128, shuffle=True, validation_da
 print("")
 sdr = RtlSdr()
 sdr.sample_rate = sample_rate = 2400000
-sdr.err_ppm = 56
+sdr.err_ppm = 1
 sdr.gain = 'auto'
 
 correct_predictions = 0
@@ -78,9 +84,6 @@ def check(freq, corr):
 
     real = np.real(iq_samples)
     imag = np.imag(iq_samples)
-
-    # iq_samples = np.concatenate((real, imag))
-    # iq_samples = np.reshape(iq_samples, (-1, 25000))
 
     iq_samples = np.ravel(np.column_stack((real, imag)))
     iq_samples = iq_samples[:INPUT_DIM]

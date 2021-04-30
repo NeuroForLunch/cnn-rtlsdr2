@@ -4,15 +4,6 @@ import numpy as np
 import scipy.signal as signal
 
 
-# def read_samples(sdr, freq):
-#    F_offset = 250000  # shifted tune to avoid DC
-#    sdr.center_freq = freq - F_offset
-#    time.sleep(0.06)
-#    iq_samples = sdr.read_samples(sample_rate * 0.25)  # sample 1/4 sec
-#    fc1 = np.exp(-1.0j * 2.0 * np.pi * F_offset / sample_rate * np.arange(len(iq_samples)))  # shift down 250kHz
-#    iq_samples = iq_samples * fc1
-#    return iq_samples
-
 def read_samples(sdr, freq):
     f_offset = 250000  # shifted tune to avoid DC
     sdr.center_freq = freq - f_offset
@@ -45,10 +36,9 @@ def collect_samples(freq, classname):
 sdr = RtlSdr()
 sdr.sample_rate = sample_rate = 2400000
 decimation_rate = 48
-sdr.err_ppm = 56   # change it to yours
+sdr.err_ppm = 1   # change it to yours
 sdr.gain = 'auto'
 
-# collect_samples(422600000, "tetra")
 collect_samples(95000000, "wfm")
 collect_samples(104000000, "wfm")
 collect_samples(942200000, "gsm")
